@@ -12,7 +12,6 @@ package types
 type Location struct {
 	Id string `json:"id,omitempty"`
 
-	Descriptor Descriptor `json:"descriptor,omitempty"`
 	// The url to the map of the location. This can be a globally recognized map url or the one specified by the network policy.
 	MapUrl string `json:"map_url,omitempty"`
 	// The GPS co-ordinates of this location.

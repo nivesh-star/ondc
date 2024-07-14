@@ -18,7 +18,7 @@ type AllOfTagDescriptor struct {
 
 	LongDesc string `json:"long_desc,omitempty"`
 
-	AdditionalDesc *DescriptorAdditionalDesc `json:"additional_desc,omitempty"`
+	// AdditionalDesc *DescriptorAdditionalDesc `json:"additional_desc,omitempty"`
 
 	Media []MediaFile `json:"media,omitempty"`
 

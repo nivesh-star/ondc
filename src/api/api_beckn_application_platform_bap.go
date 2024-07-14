@@ -9,6 +9,9 @@
 package api
 
 import (
+	"fmt"
+	"io"
+	"log"
 	"net/http"
 )
 
@@ -33,6 +36,14 @@ func OnRatingPost(w http.ResponseWriter, r *http.Request) {
 }
 
 func OnSearchPost(w http.ResponseWriter, r *http.Request) {
+	defer r.Body.Close()
+
+	body, err := io.ReadAll(r.Body)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Println(string(body))
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusOK)
 }

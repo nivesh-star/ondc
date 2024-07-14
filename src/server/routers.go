@@ -15,7 +15,7 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/nivesh-star/ondc/src/api"
-	"github.com/nivesh-star/ondc/src/common/logger"
+	common "github.com/nivesh-star/ondc/src/common/logger"
 )
 
 type Route struct {
@@ -32,7 +32,7 @@ func NewRouter() *mux.Router {
 	for _, route := range routes {
 		var handler http.Handler
 		handler = route.HandlerFunc
-		handler = logger.Logger(handler, route.Name)
+		handler = common.Logger(handler, route.Name)
 
 		router.
 			Methods(route.Method).

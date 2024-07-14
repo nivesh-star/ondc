@@ -25,7 +25,7 @@ type AllOfIntentFulfillment struct {
 	// The person that will ultimately receive the order
 	Customer string `json:"customer,omitempty"`
 	// The agent that is currently handling the fulfillment of the order
-	Agent string `json:"agent,omitempty"`
+	Agent Agent `json:"agent,omitempty"`
 
 	Contact Contact `json:"contact,omitempty"`
 

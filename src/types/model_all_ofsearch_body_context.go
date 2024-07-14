@@ -8,14 +8,10 @@
  */
 package types
 
-import (
-	"time"
-)
-
 type AllOfsearchBodyContext struct {
 	Action string `json:"action,omitempty"`
 	// Domain code that is relevant to this transaction context
-	Domain Domain `json:"domain,omitempty"`
+	Domain string `json:"domain,omitempty"`
 	// The location where the transaction is intended to be fulfilled.
 	Location Location `json:"location,omitempty"`
 	// Version of transaction protocol being used by the sender.
@@ -33,7 +29,7 @@ type AllOfsearchBodyContext struct {
 	// This is a unique value which persists during a request / callback cycle. Since beckn protocol APIs are asynchronous, BAPs need a common value to match an incoming callback from a BPP to an earlier call. This value can also be used to ignore duplicate messages coming from the BPP. It is recommended to generate a fresh message_id for every new interaction. When sending unsolicited callbacks, BPPs must generate a new message_id.
 	MessageId string `json:"message_id,omitempty"`
 	// Time of request generation in RFC3339 format
-	Timestamp time.Time `json:"timestamp,omitempty"`
+	Timestamp string `json:"timestamp,omitempty"`
 	// The encryption public key of the sender
 	Key string `json:"key,omitempty"`
 	// The duration in ISO8601 format after timestamp for which this message holds valid

@@ -12,7 +12,7 @@ type AllOfOrganizationAddress string
 
 // An organization. Usually a recognized business entity.
 type Organization struct {
-	Descriptor *Descriptor `json:"descriptor,omitempty"`
+	Descriptor Descriptor `json:"descriptor,omitempty"`
 	// The postal address of the organization
 	Address AllOfOrganizationAddress `json:"address,omitempty"`
 	// The state where the organization's address is registered
@@ -20,5 +20,6 @@ type Organization struct {
 	// The city where the the organization's address is registered
 	City AllOfOrganizationCity `json:"city,omitempty"`
 
-	Contact Contact `json:"contact,omitempty"`
+	Contact Contact      `json:"contact,omitempty"`
+	Creds   []Credential `json:"creds,omitempty"`
 }

@@ -10,11 +10,11 @@ package types
 
 // Describes the direct performer, driver or executor that fulfills an order. It is usually a person. But in some rare cases, it could be a non-living entity like a drone, or a bot. Some examples of agents are Doctor in the healthcare sector, a driver in the mobility sector, or a delivery person in the logistics sector. This object can be set at any stage of the order lifecycle. This can be set at the discovery stage when the BPP wants to provide details on the agent fulfilling the order, like in healthcare, where the doctor's name appears during search. This object can also used to search for a particular person that the customer wants fulfilling an order. Sometimes, this object gets instantiated after the order is confirmed, like in the case of on-demand taxis, where the driver is assigned after the user confirms the ride.
 type Agent struct {
-	Person *Person `json:"person,omitempty"`
+	Person Person `json:"person,omitempty"`
 
-	Contact *Contact `json:"contact,omitempty"`
+	Contact Contact `json:"contact,omitempty"`
 
-	Organization *Organization `json:"organization,omitempty"`
+	Organization Organization `json:"organization,omitempty"`
 
-	Rating *Ratingpropertiesvalue `json:"rating,omitempty"`
+	Rating Ratingpropertiesvalue `json:"rating,omitempty"`
 }

@@ -11,7 +11,7 @@ package types
 // A collection of tag objects with group level attributes. For detailed documentation on the Tags and Tag Groups schema go to https://github.com/beckn/protocol-specifications/discussions/316
 type TagGroup struct {
 	// Indicates the display properties of the tag group. If display is set to false, then the group will not be displayed. If it is set to true, it should be displayed. However, group-level display properties can be overriden by individual tag-level display property. As this schema is purely for catalog display purposes, it is not recommended to send this value during search.
-	Display bool `json:"display,omitempty"`
+	Display bool `json:"display"`
 	// Description of the TagGroup, can be used to store detailed information.
 	Descriptor AllOfTagGroupDescriptor `json:"descriptor,omitempty"`
 	// An array of Tag objects listed under this group. This property can be set by BAPs during search to narrow the `search` and achieve more relevant results. When received during `on_search`, BAPs must render this list under the heading described by the `name` property of this schema.
