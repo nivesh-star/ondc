@@ -59,84 +59,84 @@ var routes = Routes{
 	Route{
 		"api.OnCancelPost",
 		strings.ToUpper("Post"),
-		"/on_cancel",
+		"/ondc/on_cancel",
 		api.OnCancelPost,
 	},
 
 	Route{
 		"api.OnConfirmPost",
 		strings.ToUpper("Post"),
-		"/on_confirm",
+		"/ondc/on_confirm",
 		api.OnConfirmPost,
 	},
 
 	Route{
 		"api.OnInitPost",
 		strings.ToUpper("Post"),
-		"/on_init",
+		"/ondc/on_init",
 		api.OnInitPost,
 	},
 
 	Route{
 		"api.OnRatingPost",
 		strings.ToUpper("Post"),
-		"/on_rating",
+		"/ondc/on_rating",
 		api.OnRatingPost,
 	},
 
 	Route{
 		"api.OnSearchPost",
 		strings.ToUpper("Post"),
-		"/on_search",
+		"/ondc/on_search",
 		api.OnSearchPost,
 	},
 
 	Route{
 		"api.OnSelectPost",
 		strings.ToUpper("Post"),
-		"/on_select",
+		"/ondc/on_select",
 		api.OnSelectPost,
 	},
 
 	Route{
 		"api.OnStatusPost",
 		strings.ToUpper("Post"),
-		"/on_status",
+		"/ondc/on_status",
 		api.OnStatusPost,
 	},
 
 	Route{
 		"api.OnSupportPost",
 		strings.ToUpper("Post"),
-		"/on_support",
+		"/ondc/on_support",
 		api.OnSupportPost,
 	},
 
 	Route{
 		"api.OnTrackPost",
 		strings.ToUpper("Post"),
-		"/on_track",
+		"/ondc/on_track",
 		api.OnTrackPost,
 	},
 
 	Route{
 		"api.OnUpdatePost",
 		strings.ToUpper("Post"),
-		"/on_update",
+		"/ondc/on_update",
 		api.OnUpdatePost,
 	},
 
 	Route{
 		"api.OnSearchPost",
 		strings.ToUpper("Post"),
-		"/on_search",
+		"/ondc/on_search",
 		api.OnSearchPost,
 	},
 
 	Route{
 		"SearchPost",
 		strings.ToUpper("Post"),
-		"/search",
+		"/ondc/search",
 		api.SearchPost,
 	},
 
