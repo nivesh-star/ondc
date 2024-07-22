@@ -2,9 +2,9 @@ package common
 
 import (
 	"bytes"
-	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
 	"log"
 	"log/slog"
 	"net/http"
@@ -47,6 +47,7 @@ func SendOndcGWRequest(action string, payload []byte) error {
 	req, err := http.NewRequest(http.MethodPost, gwAddress+action, bytes.NewBuffer(payload))
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Add("Authorization", authHeader)
+	slog.Info(gwAddress)
 	client := &http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {
@@ -55,11 +56,13 @@ func SendOndcGWRequest(action string, payload []byte) error {
 	}
 	defer resp.Body.Close()
 
-	var responseDefault types.InlineResponseDefault
-	err = json.NewDecoder(resp.Body).Decode(&responseDefault)
-	if err != nil {
-		return errors.New("Fail to decode ONDC gateway response:" + err.Error())
-	}
+	// var responseDefault types.InlineResponseDefault
+	// err = json.NewDecoder(resp.Body).Decode(&responseDefault)
+	// if err != nil {
+	// 	return errors.New("Fail to decode ONDC gateway response:" + err.Error())
+	// }
+	content, _ := io.ReadAll(resp.Body)
+	slog.Info("Sandeep" + string(content))
 	return nil
 }
 

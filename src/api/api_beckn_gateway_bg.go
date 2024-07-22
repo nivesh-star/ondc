@@ -9,8 +9,9 @@
 package api
 
 import (
-	"encoding/json"
 	"net/http"
+
+	"github.com/clarketm/json"
 
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
@@ -88,7 +89,7 @@ func SearchPost(c *gin.Context) {
 		return
 	}
 	if err = common.SendOndcGWRequest(ONDC_SEARCH_ACTION, gwSearchRequest); err != nil {
-		c.JSON(http.StatusOK, "Success")
+		c.JSON(http.StatusOK, "Failed")
 	}
-	c.JSON(http.StatusBadRequest, "Failed")
+	c.JSON(http.StatusBadRequest, "Success")
 }
