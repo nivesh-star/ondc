@@ -9,16 +9,13 @@
 package main
 
 import (
-	"log"
-	"net/http"
+	"log/slog"
 
 	"github.com/nivesh-star/ondc/src/server"
 )
 
 func main() {
-	log.Printf("Server started")
-
-	router := server.NewRouter()
-
-	log.Fatal(http.ListenAndServe(":4000", router))
+	slog.Info("Starting ONDC Backend engine")
+	server := server.NewServer()
+	server.Run()
 }

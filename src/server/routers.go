@@ -9,134 +9,131 @@
 package server
 
 import (
-	"fmt"
-	"net/http"
 	"strings"
 
-	"github.com/gorilla/mux"
+	"github.com/gin-gonic/gin"
 	"github.com/nivesh-star/ondc/src/api"
-	common "github.com/nivesh-star/ondc/src/common/logger"
 )
 
-type Route struct {
+type Route_ struct {
 	Name        string
 	Method      string
 	Pattern     string
-	HandlerFunc http.HandlerFunc
+	HandlerFunc gin.HandlerFunc
 }
 
-type Routes []Route
+type Routes_ []Route_
 
-func NewRouter() *mux.Router {
-	router := mux.NewRouter().StrictSlash(true)
-	for _, route := range routes {
-		var handler http.Handler
-		handler = route.HandlerFunc
-		handler = common.Logger(handler, route.Name)
+// func NewRouter() *mux.Router {
+// 	router := mux.NewRouter().StrictSlash(true)
+// 	for _, route := range routes {
+// 		var handler http.Handler
+// 		handler = route.HandlerFunc
+// 		handler = common.Logger(handler, route.Name)
 
-		router.
-			Methods(route.Method).
-			Path(route.Pattern).
-			Name(route.Name).
-			Handler(handler)
-	}
+// 		router.
+// 			Methods(route.Method).
+// 			Path(route.Pattern).
+// 			Name(route.Name).
+// 			Handler(handler)
+// 	}
 
-	return router
-}
+// 	return router
+// }
 
-func Index(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Hello World!")
-}
+// func Index(w http.ResponseWriter, r *http.Request) {
+// 	fmt.Fprintf(w, "Hello World!")
+// }
 
-var routes = Routes{
-	Route{
-		"Index",
-		"GET",
-		"/",
-		Index,
-	},
+var Routes = Routes_{
+	// Route{
+	// 	"Index",
+	// 	"GET",
+	// 	"/",
+	// 	Index,
+	// },
 
-	Route{
-		"api.OnCancelPost",
-		strings.ToUpper("Post"),
-		"/ondc/on_cancel",
-		api.OnCancelPost,
-	},
+	// Route_{
+	// 	"api.OnCancelPost",
+	// 	strings.ToUpper("Post"),
+	// 	"/on_cancel",
+	// 	api.OnCancelPost,
+	// },
 
-	Route{
-		"api.OnConfirmPost",
-		strings.ToUpper("Post"),
-		"/ondc/on_confirm",
-		api.OnConfirmPost,
-	},
+	// Route_{
+	// 	"api.OnConfirmPost",
+	// 	strings.ToUpper("Post"),
+	// 	"/on_confirm",
+	// 	api.OnConfirmPost,
+	// },
 
-	Route{
-		"api.OnInitPost",
-		strings.ToUpper("Post"),
-		"/ondc/on_init",
-		api.OnInitPost,
-	},
+	// Route_{
+	// 	"api.OnInitPost",
+	// 	strings.ToUpper("Post"),
+	// 	"/on_init",
+	// 	api.OnInitPost,
+	// },
 
-	Route{
-		"api.OnRatingPost",
-		strings.ToUpper("Post"),
-		"/ondc/on_rating",
-		api.OnRatingPost,
-	},
+	// Route_{
+	// 	"api.OnRatingPost",
+	// 	strings.ToUpper("Post"),
+	// 	"/on_rating",
+	// 	api.OnRatingPost,
+	// },
 
-	Route{
+	// Route_{
+	// 	"api.OnSearchPost",
+	// 	strings.ToUpper("Post"),
+	// 	"/on_search",
+	// 	api.OnSearchPost,
+	// },
+
+	// Route_{
+	// 	"api.OnSelectPost",
+	// 	strings.ToUpper("Post"),
+	// 	"/on_select",
+	// 	api.OnSelectPost,
+	// },
+
+	// Route_{
+	// 	"api.OnStatusPost",
+	// 	strings.ToUpper("Post"),
+	// 	"/on_status",
+	// 	api.OnStatusPost,
+	// },
+
+	// Route_{
+	// 	"api.OnSupportPost",
+	// 	strings.ToUpper("Post"),
+	// 	"/on_support",
+	// 	api.OnSupportPost,
+	// },
+
+	// Route_{
+	// 	"api.OnTrackPost",
+	// 	strings.ToUpper("Post"),
+	// 	"/on_track",
+	// 	api.OnTrackPost,
+	// },
+
+	// Route_{
+	// 	"api.OnUpdatePost",
+	// 	strings.ToUpper("Post"),
+	// 	"/on_update",
+	// 	api.OnUpdatePost,
+	// },
+
+	Route_{
 		"api.OnSearchPost",
 		strings.ToUpper("Post"),
-		"/ondc/on_search",
+		"/on_search",
 		api.OnSearchPost,
 	},
 
-	Route{
-		"api.OnSelectPost",
-		strings.ToUpper("Post"),
-		"/ondc/on_select",
-		api.OnSelectPost,
-	},
-
-	Route{
-		"api.OnStatusPost",
-		strings.ToUpper("Post"),
-		"/ondc/on_status",
-		api.OnStatusPost,
-	},
-
-	Route{
-		"api.OnSupportPost",
-		strings.ToUpper("Post"),
-		"/ondc/on_support",
-		api.OnSupportPost,
-	},
-
-	Route{
-		"api.OnTrackPost",
-		strings.ToUpper("Post"),
-		"/ondc/on_track",
-		api.OnTrackPost,
-	},
-
-	Route{
-		"api.OnUpdatePost",
-		strings.ToUpper("Post"),
-		"/ondc/on_update",
-		api.OnUpdatePost,
-	},
-
-	Route{
-		"api.OnSearchPost",
-		strings.ToUpper("Post"),
-		"/ondc/on_search",
-		api.OnSearchPost,
-	},
-
-	Route{
+	Route_{
 		"SearchPost",
 		strings.ToUpper("Post"),
-		"/ondc/search",
+		"/search",
 		api.SearchPost,
 	},
 

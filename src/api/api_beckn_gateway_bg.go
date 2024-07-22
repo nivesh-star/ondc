@@ -9,66 +9,86 @@
 package api
 
 import (
-	//"encoding/json"
-	"bytes"
-	"fmt"
-	"io"
-	"log"
+	"encoding/json"
 	"net/http"
 
-	"github.com/clarketm/json"
+	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
-	common "github.com/nivesh-star/ondc/src/common/logger"
+	"github.com/nivesh-star/ondc/src/common"
 	"github.com/nivesh-star/ondc/src/types"
 )
+
+//"encoding/json"
 
 // func OnSearchPost(w http.ResponseWriter, r *http.Request) {
 // 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 // 	w.WriteHeader(http.StatusOK)
 // }
 
-func SearchPost(w http.ResponseWriter, r *http.Request) {
+// func SearchPost(w http.ResponseWriter, r *http.Request) {
 
+// 	var searchRequest types.SearchBody
+// 	err := json.NewDecoder(r.Body).Decode(&searchRequest)
+// 	if err != nil {
+// 		fmt.Println(err.Error())
+// 		return
+// 	}
+
+// 	searchRequest.Context.TransactionId = uuid.New().String()
+// 	searchRequest.Context.MessageId = uuid.New().String()
+
+// 	request, err := json.Marshal(searchRequest)
+// 	if err != nil {
+// 		fmt.Println(err.Error())
+// 		return
+// 	}
+
+// 	authHeader, err := common.GetAuthHeader(request, "7qDUVwqw7Oe13JTa8nAM9ktLj12E4pxBDDxZN8qVwtvGglywynYJUPJo6B/vB5/Rwn2XSAKlKT5snQupvOU4/Q==")
+// 	if err != nil {
+// 		fmt.Errorf("error: %s", err.Error())
+// 		return
+// 	}
+// 	// fmt.Println("here = ", string(request))
+// 	// fmt.Println(authHeader)
+// 	// fmt.Println("Sig verification Passed:", common.VerifyRequest(authHeader, request))
+
+// 	req, err := http.NewRequest("POST", "https://staging.gateway.proteantech.in/search", bytes.NewBuffer(request))
+// 	req.Header.Set("Content-Type", "application/json")
+// 	req.Header.Add("Authorization", authHeader)
+// 	client := &http.Client{}
+// 	resp, err := client.Do(req)
+// 	if err != nil {
+// 		fmt.Println(err)
+// 	}
+// 	defer resp.Body.Close()
+
+// 	body, err := io.ReadAll(resp.Body)
+// 	if err != nil {
+// 		log.Fatal(err)
+// 	}
+
+//		fmt.Println(string(body))
+//		w.WriteHeader(http.StatusOK)
+//	}
+const (
+	ONDC_SEARCH_ACTION = "search"
+)
+
+func SearchPost(c *gin.Context) {
 	var searchRequest types.SearchBody
-	err := json.NewDecoder(r.Body).Decode(&searchRequest)
-	if err != nil {
-		fmt.Println(err.Error())
+	if err := c.ShouldBind(&searchRequest); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-
 	searchRequest.Context.TransactionId = uuid.New().String()
 	searchRequest.Context.MessageId = uuid.New().String()
 
-	request, err := json.Marshal(searchRequest)
+	gwSearchRequest, err := json.Marshal(searchRequest)
 	if err != nil {
-		fmt.Println(err.Error())
 		return
 	}
-
-	authHeader, err := common.GetAuthHeader(request, "7qDUVwqw7Oe13JTa8nAM9ktLj12E4pxBDDxZN8qVwtvGglywynYJUPJo6B/vB5/Rwn2XSAKlKT5snQupvOU4/Q==")
-	if err != nil {
-		fmt.Errorf("error: %s", err.Error())
-		return
+	if err = common.SendOndcGWRequest(ONDC_SEARCH_ACTION, gwSearchRequest); err != nil {
+		c.JSON(http.StatusOK, "Success")
 	}
-	// fmt.Println("here = ", string(request))
-	// fmt.Println(authHeader)
-	// fmt.Println("Sig verification Passed:", common.VerifyRequest(authHeader, request))
-
-	req, err := http.NewRequest("POST", "https://staging.gateway.proteantech.in/search", bytes.NewBuffer(request))
-	req.Header.Set("Content-Type", "application/json")
-	req.Header.Add("Authorization", authHeader)
-	client := &http.Client{}
-	resp, err := client.Do(req)
-	if err != nil {
-		fmt.Println(err)
-	}
-	defer resp.Body.Close()
-
-	body, err := io.ReadAll(resp.Body)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	fmt.Println(string(body))
-	w.WriteHeader(http.StatusOK)
+	c.JSON(http.StatusBadRequest, "Failed")
 }

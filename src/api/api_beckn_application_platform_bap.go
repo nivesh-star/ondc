@@ -9,10 +9,13 @@
 package api
 
 import (
-	"fmt"
-	"io"
-	"log"
+	"encoding/json"
+	"log/slog"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
+	"github.com/nivesh-star/ondc/src/common"
+	"github.com/nivesh-star/ondc/src/types"
 )
 
 func OnCancelPost(w http.ResponseWriter, r *http.Request) {
@@ -35,17 +38,19 @@ func OnRatingPost(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 }
 
-func OnSearchPost(w http.ResponseWriter, r *http.Request) {
-	defer r.Body.Close()
+func OnSearchPost(c *gin.Context) {
 
-	body, err := io.ReadAll(r.Body)
-	if err != nil {
-		log.Fatal(err)
+	var onSearchRequest types.OnSearchBody
+	if err := c.ShouldBindJSON(onSearchRequest); err != nil {
+		common.SendOndcGWErrorResponse(c, err.Error())
+		return
 	}
 
-	fmt.Println(string(body))
-	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
-	w.WriteHeader(http.StatusOK)
+	catalog, _ := json.MarshalIndent(onSearchRequest, "", " ")
+	slog.Info(string(catalog))
+
+	common.SendOndcGWErrorSuccess(c)
+	return
 }
 
 func OnSelectPost(w http.ResponseWriter, r *http.Request) {
